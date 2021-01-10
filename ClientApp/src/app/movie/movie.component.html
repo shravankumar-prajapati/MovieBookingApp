@@ -1,0 +1,100 @@
+    <div class="container">  
+  
+     
+      
+            <div align="center" style="color:white;text-align: right;">  
+             Movie 
+            </div>    
+            
+        <br><br>  
+         
+            <form [formGroup]="movieForm" (ngSubmit)="onFormSubmit(movieForm.value)">  
+                    <table>  
+                      <tr>  
+                          <td> 
+                        <div class="form-group">  
+                            <label for="Name"  >Movie Name:</label>
+                            <input type="text" formControlName="Name" class="form-control" Tooltip="Enter Movie Name"  placeholder="Movie Name">  
+                         
+                        
+                            <span *ngIf="!movieForm.get('Name').value && movieForm.get('Name').touched"></span>  
+                          
+                        </div>  
+                     
+                         <div class="form-group">  
+                            <label for="MoviesDescriptions" >Movie Description:</label>
+                              <input type="text" formControlName="MoviesDescriptions" class="form-control" Tooltip="Enter Movie Description"  placeholder="Movie Description"/>
+                          
+                           
+                          
+                              <span *ngIf="!movieForm.get('MoviesDescriptions').value && movieForm.get('MoviesDescriptions').touched"></span>  
+                            
+                          </div>
+                     
+                            <div class="form-group">  
+                                <label for="ReleaseDate" >Movie Release Date:</label>
+                                <input type="date"  Tooltip="Enter Release Date" class="form-control" formControlName="ReleaseDate"  >  
+                            
+                             
+                                <span *ngIf="!movieForm.get('ReleaseDate').value && movieForm.get('ReleaseDate').touched"></span>  
+                              
+                            </div>  
+                       
+                        
+                            <div class="form-group">  
+                                  <label for="active">Active:</label>
+                                  <input formControlName="IsActive" type="checkbox"  id="active" >  
+                                
+                                  <span *ngIf="!movieForm.get('IsActive').value && movieForm.get('IsActive').touched"></span>  
+                                
+                              </div>
+                            
+                            </td>
+                        </tr>
+                
+                      <tr>  
+                        <td></td>  
+                        <td  class="content-center">  
+                          <button type="submit" color="accent" Tooltip="Click Submit Button"[disabled]="!movieForm.valid">Submit</button>      
+                          <button type="reset"  color="accent" Tooltip="Click Reset Button" (click)="resetForm()">Reset</button>  
+                        </td>  
+                        <td>  
+                          <p *ngIf="dataSaved" style="color:rgb(0, 128, 0);font-size:20px;font-weight:bold" Class="success">  
+                            {{massage}}  
+                          </p>  
+                        </td>  
+                      </tr>  
+                    </table>  
+        <br><br>  
+              <table class="table" >  
+                  <tr ngclass="btn-primary">  
+                    <th >Movie Name</th>  
+                    <th >Description</th>  
+                    <th >Release Date</th>  
+                    <th >Active</th>  
+                    <th >CreatedDate</th>  
+                    <th >UpdatedDate</th>  
+                    <th >UpdatedBy</th>  
+                    <th ></th>  
+                    <th ></th>  
+                  </tr>  
+                  <tr *ngFor="let movie of allMovies">  
+                    <td >{{movie.name}}</td>  
+                    <td >{{movie.moviesDescriptions}}</td>  
+                    <td >{{movie.releaseDate | date }}</td>  
+                    <td >{{movie.isActive==true? "active": "InActive" }}</td>  
+                    <td >{{movie.createdDate | date }}</td>  
+                    <td >{{movie.updatedDate | date }}</td>  
+                    <td >{{movie.updatedBy }}</td>  
+                    <td>  
+                      <button type="button" class="btn btn-info" Tooltip="Click Edit Button"(click)="loadMovieToEdit(movie.id)">Edit</button>  
+                    </td>  
+                    <td>  
+                      <button type="button" class="btn btn-danger" Tooltip="Click Delete Button" 
+                      onClick="return confirm('Are you absolutely sure you want to delete?')" (click)="deleteMovie(movie.id)">Delete</button>  
+                    </td>  
+                  </tr>  
+                </table>  
+            </form>  
+ 
+        </div>  
